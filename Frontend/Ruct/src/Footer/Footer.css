@@ -1,0 +1,270 @@
+:root {
+    /* Colors */
+    --primary-color: #0e5245;
+    --secondary-color: #207967;
+    --text-color: black;
+    --main-size: 20px;
+
+    /* Shadows */
+    --shadow-small: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 10px rgba(0, 0, 0, 0.15);
+    --shadow-large: 0 8px 20px rgba(0, 0, 0, 0.134);
+    --shadow-large-green: 0 8px 20px #20796774;
+    /* Fonts */
+    --font-main: Arial, sans-serif;
+    --font-heading: Georgia, serif;
+
+    /* Font sizes text*/
+    --font-text-small: 12px;
+    --font-text-medium: 13px;
+    --font-text-large: 15px;
+
+    /* Font sizes paragraph*/
+    --font-paragraph-small: 14px;
+    --font-paragraph-medium: 16px;
+    --font-paragraph-large: 17px;
+
+    /* Font sizes title*/
+    --font-title-small: 28px;
+    --font-title-medium: 30px;
+    --font-title-large: 32px;
+
+    /* Font weights */
+    --title-weight:600;
+}
+
+*{
+    font-family: var(--font-main);
+}
+
+
+
+
+
+
+/* Desktop */
+@media (min-width: 1025px) {
+    /* Desktop styles */
+    .Footer {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        height: auto;
+    }
+
+    .Footer-directions{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 20px 20px 0px 20px;
+        font-size: var(--font-paragraph-large);
+    }
+
+    .Footer-details{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        margin-top: 5px;
+    
+    }
+
+    .Copy_rights{
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        margin-top: -8px;
+        font-size: var(--font-paragraph-large);
+        
+    }
+
+    /* Logo */
+    .Logo-img{
+    
+        width: 90px;
+        height: 60px;
+    }
+
+    /* Categories, Client, Seller */
+    .lists{
+        list-style: none;
+    }
+
+    .lists a{
+        text-decoration: none;
+        color: white;
+        
+    }
+
+    .lists a:hover{
+        text-decoration: underline;
+        
+        
+    }
+
+    .lists li{
+        padding-bottom: 10px;
+        margin-left: -35px;
+    }
+
+    .text{
+        font-size: var(--font-medium);
+        font-weight: var(--title-weight);
+        text-decoration: underline;
+        
+    }
+        
+    }
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Tablet styles */
+    .Footer {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        height: auto;
+    }
+
+    .Footer-directions{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 20px 20px 0px 20px;
+        font-size: var(--font-paragraph-medium);
+    }
+
+    .Footer-details{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        margin-top: 5px;
+    
+    }
+
+    .Copy_rights{
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        margin-top: -8px;
+        font-size: var(--font-paragraph-medium);
+        
+    }
+
+    /* Logo */
+    .Logo-img{
+    
+        width: 90px;
+        height: 60px;
+    }
+
+    /* Categories, Client, Seller */
+    .lists{
+        list-style: none;
+    }
+
+    .lists a{
+        text-decoration: none;
+        color: white;
+        
+    }
+
+    .lists a:hover{
+        text-decoration: underline;
+        
+        
+    }
+
+    .lists li{
+        padding-bottom: 10px;
+        margin-left: -35px;
+    }
+
+    .text{
+        font-size: var(--font-medium);
+        font-weight: var(--title-weight);
+        text-decoration: underline;
+        
+    }
+        
+    
+}
+
+/* Smartphone */
+@media (max-width: 767px) {
+    /* Smartphone styles */
+    .Footer {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        height: auto;
+    }
+
+    .Footer-directions{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 20px 20px 0px 20px;
+        font-size: var(--font-paragraph-small);
+    }
+
+    .Footer-details{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        margin-top: 5px;
+    
+    }
+
+    .Copy_rights{
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        margin-top: -8px;
+        font-size: var(--font-paragraph-small);
+        
+    }
+
+    /* Logo */
+    .Logo-img{
+    
+        width: 90px;
+        height: 60px;
+    }
+
+    /* Categories, Client, Seller */
+    .lists{
+        list-style: none;
+    }
+
+    .lists a{
+        text-decoration: none;
+        color: white;
+        
+    }
+
+    .lists a:hover{
+        text-decoration: underline;
+        
+        
+    }
+
+    .lists li{
+        padding-bottom: 10px;
+        margin-left: -35px;
+    }
+
+    .text{
+        font-size: var(--font-medium);
+        font-weight: var(--title-weight);
+        text-decoration: underline;
+        
+    }
+        
+    
+}

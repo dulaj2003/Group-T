@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 295.09 500.52">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        font-family: ArialNarrow-Bold, Arial;
+        font-size: 414.78px;
+        font-weight: 700;
+      }
+
+      .cls-2 {
+        fill: #0d5146;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path class="cls-2" d="m265.77,33.63H29.33C13.13,33.63,0,46.76,0,62.95v332.25h295.09V62.95c0-16.2-13.13-29.33-29.32-29.33Z"/>
+  <text class="cls-1" transform="translate(30.59 373.71) rotate(-4.41)"><tspan x="0" y="0">R</tspan></text>
+  <text/>
+  <text/>
+</svg>

@@ -1,0 +1,318 @@
+:root {
+    /* Colors */
+    --primary-color: #0e5245;
+    --secondary-color: #207967;
+    --text-color: black;
+    --main-size: 20px;
+
+    /* Shadows */
+    --shadow-small: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 10px rgba(0, 0, 0, 0.15);
+    --shadow-large: 0 8px 20px rgba(0, 0, 0, 0.134);
+    --shadow-large-green: 0 8px 20px #20796774;
+    /* Fonts */
+    --font-main: Arial, sans-serif;
+    --font-heading: Georgia, serif;
+
+    /* Font sizes text*/
+    --font-text-small: 12px;
+    --font-text-medium: 13px;
+    --font-text-large: 15px;
+
+    /* Font sizes paragraph*/
+    --font-paragraph-small: 14px;
+    --font-paragraph-medium: 16px;
+    --font-paragraph-large: 17px;
+
+    /* Font sizes title*/
+    --font-title-small: 28px;
+    --font-title-medium: 30px;
+    --font-title-large: 32px;
+
+    /* Font weights */
+    --title-weight:600;
+}
+
+* {
+    font-family: var(--font-main);
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* =========================
+   Desktop
+========================= */
+@media (min-width: 1025px) {
+
+    .NavBar {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        padding: 10px 0;
+        height: 80px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        box-shadow: var(--shadow-small);
+    }
+
+    .Directions {
+        display: flex;
+        align-items: center;
+        padding-right: 35px;
+        gap: 10px;
+    }
+
+    .Direction-link {
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: var(--font-medium);
+        font-weight: 540;
+        padding: 10px;
+    }
+
+    .Direction-link:hover {
+        color: white;
+        background-color: var(--primary-color);
+        border-radius: 2px;
+    }
+
+    .Category {
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: var(--font-medium);
+        font-weight: 540;
+        padding: 10px;
+        border: none;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .Category:hover,
+    .Category:focus {
+        color: white;
+        background-color: var(--primary-color);
+        border-radius: 2px;
+    }
+
+    .Category option {
+        color: var(--text-color);
+        background-color: white;
+    }
+
+    .Category option:hover {
+        color: white;
+        background-color: var(--primary-color);
+    }
+
+    .Join-btn {
+        margin-left: 15px;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 15px;
+    }
+
+    .Join-btn:hover {
+        background-color: var(--secondary-color);
+    }
+
+    .Logo {
+        margin-top: 10px;
+        background-color: transparent;
+    }
+
+    .Logo-img {
+        padding-right: 10px;
+        width: 90px;
+        height: 60px;
+        margin-left: 30px;
+        object-fit: contain;
+    }
+
+    .Hamburger {
+        display: none;
+    }
+}
+
+
+/* =========================
+   Tablet
+========================= */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    .NavBar {
+        width: 100%;
+        min-height: 75px;
+        padding: 10px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        box-shadow: var(--shadow-small);
+    }
+
+    .Logo-img {
+        width: 70px;
+        height: 50px;
+        object-fit: contain;
+        margin-left: 10px;
+    }
+
+    /* Hide hamburger on tablets */
+    .Hamburger {
+        display: none;
+    }
+
+    /* Show navigation links */
+    .Directions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+        padding-right: 10px;
+    }
+
+    .Direction-link {
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: 14px;
+        padding: 8px 5px;
+        white-space: nowrap;
+    }
+
+    .Direction-link:hover {
+        color: white;
+        background-color: var(--primary-color);
+        border-radius: 2px;
+    }
+
+    .Category:hover,
+    .Category:focus {
+        color: white;
+        background-color: var(--primary-color);
+        border-radius: 2px;
+    }
+
+    .Category {
+        font-size: 14px;
+        padding: 8px 5px;
+        border: none;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .Join-btn {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 9px 14px;
+        text-decoration: none;
+        border-radius: 15px;
+        white-space: nowrap;
+    }
+
+    .Join-btn:hover {
+        background-color: var(--secondary-color);
+    }
+}
+
+
+/* =========================
+   Smartphone
+========================= */
+@media (max-width: 767px) {
+
+    .NavBar {
+        width: 100%;
+        min-height: 65px;
+        padding: 5px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        box-shadow: var(--shadow-small);
+    }
+
+    .Logo-img {
+        width: 75px;
+        height: 50px;
+        object-fit: contain;
+    }
+
+    .Hamburger {
+        display: block;
+        font-size: 28px;
+        color: var(--primary-color);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    .Directions {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 25px 20px;
+        background-color: white;
+        box-shadow: var(--shadow-medium);
+        z-index: 1001;
+    }
+
+    .Directions.active {
+        display: flex;
+    }
+
+    .Direction-link {
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: var(--font-medium);
+        padding: 10px;
+    }
+
+    .Direction-link:hover {
+        color: white;
+        background-color: var(--primary-color);
+        border-radius: 3px;
+    }
+
+    .Category {
+        width: 100%;
+        font-size: var(--font-medium);
+        padding: 10px;
+        border: 1px solid #ddd;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .Join-btn {
+        text-align: center;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px 20px;
+        text-decoration: none;
+        border-radius: 15px;
+    }
+
+    .Join-btn:hover {
+        background-color: var(--secondary-color);
+    }
+}
