@@ -7,6 +7,10 @@ import Plumber from './Pages/Plumber/Plumber.jsx'
 import PlumberProfile from './Pages/Plumber/PlumberProfile.jsx';
 import Electrician from './Pages/Electrician/Electrician.jsx';
 import ElectricianProfile from './Pages/Electrician/ElectricianProfile.jsx';
+import Mason from './Pages/Mason/Mason.jsx';
+import MasonProfile from './Pages/Mason/MasonProfile.jsx';
+import Painter from './Pages/Painter/Painter.jsx';
+import PainterProfile from './Pages/Painter/PainterProfile.jsx';
 
 
 function App() {
@@ -18,11 +22,14 @@ function App() {
       
       {/* <Login/> */}
 
-      <Plumber/>
+      {/* <Plumber/> */}
       {/* <PlumberProfile/> */}
 
       {/* <ElectricianProfile/> */}
-
+      {/* <Mason/> */}
+      {/* <MasonProfile/> */}
+      {/* <Painter/> */}
+      <PainterProfile/>
       <Footer/>
     </div>
   )
