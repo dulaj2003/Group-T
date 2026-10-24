@@ -30,15 +30,7 @@ function App() {
       {/* <Plumber/> */}
       {/* <PlumberProfile/> */}
 
-      {/* <ElectricianProfile/> */}
-      {/* <Mason/> */}
-      {/* <MasonProfile/> */}
-      {/* <Painter/> */}
-      {/* <PainterProfile/> */}
-      {/* <TileWorker/> */}
-      {/* <TileWorkerProfile />*/}
-      {/* <RoofWorker /> */}
-      {/* <RoofWorkerProfile /> */}
+
 
       <Footer />
     </div>
