@@ -1,6 +1,6 @@
 import './Footer.css'
 import Logo from '../assets/Ruct.png';
-
+import { Link } from 'react-router-dom';
 
 function Footer(){
     return(
@@ -10,36 +10,31 @@ function Footer(){
                 <div className="Categories">
                     <span className="text">Categories</span>
                     <ul className="lists">
-                        <a href="#"><li>Construction</li></a>
-                        <a href="#"><li>Mason Work</li></a>
-                        <a href="#"><li>Plumbing</li></a>
-                        <a href="#"><li>Electrical Work</li></a>
-                        <a href="#"><li>Tile Work</li></a>
-                        <a href="#"><li>Painting</li></a>
-                        <a href="#"><li>Roof Work</li></a>              
+                        <li><Link to="/construction">Construction</Link></li>
+                        <li><Link to="/masons">Mason Work</Link></li>
+                        <li><Link to="/plumbers">Plumbing</Link></li>
+                        <li><Link to="/electricians">Electrical Work</Link></li>
+                        <li><Link to="/tile-workers">Tile Work</Link></li>
+                        <li><Link to="/painters">Painting</Link></li>
+                        <li><Link to="/roof-workers">Roof Work</Link></li>
                     </ul>
                 </div>
 
                 <div className="Client">
                     <span className="text">For Client</span>
                     <ul className="lists">
-                        <a href="#"><li>Contruct</li></a>
-                        <a href="#"><li>Tile</li></a>
-                        <a href="#"><li>Plumbers</li></a>
-                        <a href="#"><li>Wiriing</li></a>
-                        <a href="#"><li>Roofing</li></a>              
+                        <li>
+                            <Link to="/register">As a Client</Link>
+                        </li>
                     </ul>
-
                 </div>
 
                 <div className="Seller">
                     <span className="text">For Worker</span>
                     <ul className="lists">
-                        <a href="#"><li>Contruct</li></a>
-                        <a href="#"><li>Tile</li></a>
-                        <a href="#"><li>Plumbers</li></a>
-                        <a href="#"><li>Wiriing</li></a>
-                        <a href="#"><li>Roofing</li></a>              
+                        <li>
+                            <Link to="/worker-register">As a Worker</Link>
+                        </li>
                     </ul>
                 </div>
                 

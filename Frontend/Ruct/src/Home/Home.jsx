@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Home.css';
 import Slogan from '../assets/Slogan.png';
 
@@ -19,16 +20,38 @@ function Home(){
                     <span className="About-bold">Ruct — One Platform. One Industry.</span> 
             </article>
             <hr />
-            <section className="Categories-btn">
-                <a href="#"><button className="btn">Construction</button></a>
-                <a href="#"><button className="btn">Mason<br />Work</button></a>
-                <a href="#"><button className="btn">Plumbing</button></a>
-                <a href="#"><button className="btn">Electrical<br />Work</button></a>
-                <a href="#"><button className="btn">Tile<br />Work</button></a>
-                <a href="#"><button className="btn">Painting</button></a>
-                <a href="#"><button className="btn">Roof<br />Work</button></a>
-                
-            </section>
+            
+        <section className="Categories-btn">
+
+            <Link to="/construction" className="Direction-link">
+                <button className="btn">Construction</button>
+            </Link>
+
+            <Link to="/masons" className="Direction-link">
+                <button className="btn">Mason<br />Work</button>
+            </Link>
+
+            <Link to="/plumbers" className="Direction-link">
+                <button className="btn">Plumbing</button>
+            </Link>
+
+            <Link to="/electricians" className="Direction-link">
+                <button className="btn">Electrical<br />Work</button>
+            </Link>
+
+            <Link to="/tile-workers" className="Direction-link">
+                <button className="btn">Tile<br />Work</button>
+            </Link>
+
+            <Link to="/painters" className="Direction-link">
+                <button className="btn">Painting</button>
+            </Link>
+
+            <Link to="/roof-workers" className="Direction-link">
+                <button className="btn">Roof<br />Work</button>
+            </Link>
+
+        </section>
         </main>
     )
 }

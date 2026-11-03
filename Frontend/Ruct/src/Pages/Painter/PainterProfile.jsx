@@ -1,11 +1,18 @@
 import '../Workers.css';
 import ProfilePicture from '../WorkersImages/img2.webp';
+import { useNavigate } from 'react-router-dom';
 
 function PainterProfile(){
+    const navigate = useNavigate();
     return (
          <div className="Page-container">
                                                     <main class="details-container">
-                                                        <a href="electrical-worker.html" class="back-link">← Back to Paint Workers</a>
+                                                        <button
+                                                            className="back-link"
+                                                            onClick={() => navigate('/painters')}
+                                                        >
+                                                            ← Back to Workers
+                                                        </button>
                                                         <div class="profile-card">
                                                             <img id="workerImage" src={ProfilePicture} alt="Worker profile"/>
                                                             <div class="profile-info">

@@ -1,28 +1,36 @@
 import '../Workers.css';
 import ProfilePicture from '../WorkersImages/img2.webp';
+import { useNavigate } from 'react-router-dom';
+
 
 function PlumberProfile() {
+    const navigate = useNavigate();
     return(
         <div>
 
                 <main className="details-container">
-                    <a href="plumber.html" class="back-link">← Back to Plumbers</a>
+                    <button
+                        className="back-link"
+                        onClick={() => navigate('/plumbers')}
+                    >
+                        ← Back to Workers
+                    </button>
                     <div className="profile-card">
                         <img id="workerImage" src={ProfilePicture} alt="Worker profile"/>
                         <div className="profile-info">
                             <span className="available">Available for Work</span>
-                            <h1 id="workerName">Worker Name</h1>
-                            <p id="workerLocation"></p>
-                            <p id="workerExperience"></p>
-                            <p id="workerPrice" class="price"></p>
-                            <hr/>
-                            <h3>About Me</h3>
-                            <p id="workerDescription"></p>
-                            <h3>Services</h3>
-                            <ul id="workerServices"></ul>
-                            <h3>Contact Details</h3>
-                            <p id="workerPhone"></p>
-                            <p id="workerEmail"></p>
+                            <h1 id="workerName">Kavindu Vinod</h1>
+                        <p id="workerLocation"></p>
+                        <p id="workerExperience"></p>
+                        <p id="workerPrice" class="price"></p>
+                        <hr/>
+                        <h3>About Me</h3>
+                        <p id="workerDescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum a officiis quaerat consequatur qui consequuntur veniam. Ea iste adipisci quidem!</p>
+                        <h3>Services</h3>
+                        <ul id="workerServices">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione dignissimos, inventore architecto ipsum obcaecati voluptatem dicta consectetur odio quisquam distinctio delectus odit assumenda voluptate. Culpa animi molestiae amet aliquid sapiente.</ul>
+                        <h3>Contact Details</h3>
+                        <p ><span>Phone: </span><span id="workerPhone">+94 77 55 93 656</span> </p>
+                        <p ><span>Email: </span><span id="workerEmail">kavinduvinod63@gmail.com</span> </p>
                             <a id="callButton" href="#" class="details-btn">Call Worker</a>
                         </div>
                     </div>

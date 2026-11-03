@@ -237,6 +237,7 @@ body {
     padding: 11px;
     border-radius: 6px;
     margin-top: 10px;
+    border: none;
 }
 .details-btn:hover, .main-btn:hover { background: var(--secondary-color); }
 .details-container {
@@ -250,6 +251,8 @@ body {
     text-decoration: none;
     color: #1769aa;
     font-weight: bold;
+    border: none;
+    background-color: transparent;
 }
 .profile-card {
     display: grid;
@@ -349,6 +352,7 @@ body {
     padding: 11px;
     border-radius: 6px;
     margin-top: 10px;
+    border: none;
 }
 .details-btn:hover, .main-btn:hover { background: var(--secondary-color); }
 .details-container {
@@ -362,6 +366,8 @@ body {
     text-decoration: none;
     color: #1769aa;
     font-weight: bold;
+    border: none;
+    background-color: transparent;
 }
 .profile-card {
     display: flex;
@@ -472,6 +478,7 @@ body {
     padding: 11px;
     border-radius: 6px;
     margin-top: 10px;
+    border: none;
 }
 .details-btn:hover, .main-btn:hover { background: var(--secondary-color); }
 .details-container {
@@ -485,6 +492,8 @@ body {
     text-decoration: none;
     color: #1769aa;
     font-weight: bold;
+    border: none;
+    background-color: transparent;
 }
 .profile-card {
     display: flex;

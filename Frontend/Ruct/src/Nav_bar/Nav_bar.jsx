@@ -1,20 +1,47 @@
-
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Nav_bar.css';
 import Logo from '../assets/Ruct.png';
 
 function Nav_bar() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const navigate = useNavigate();
+
+    // Close mobile menu
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
+
+    // Navigate when a category is selected
+    const handleCategoryChange = (e) => {
+        const path = e.target.value;
+
+        if (path) {
+            navigate(path);
+            closeMenu();
+        }
+
+        // Reset dropdown so another category can be selected
+        e.target.value = '';
+    };
 
     return (
         <nav className="NavBar">
 
+            {/* Logo */}
             <div className="Logo">
-                <img className="Logo-img" src={Logo} alt="Logo" />
+                <Link to="/" onClick={closeMenu}>
+                    <img
+                        className="Logo-img"
+                        src={Logo}
+                        alt="Ruct Logo"
+                    />
+                </Link>
             </div>
 
-            {/* Hamburger button */}
+            {/* Hamburger - smartphones only */}
             <button
+                type="button"
                 className="Hamburger"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Toggle navigation menu"
@@ -26,56 +53,79 @@ function Nav_bar() {
             {/* Navigation links */}
             <div className={`Directions ${menuOpen ? 'active' : ''}`}>
 
-                <a
-                    href="#"
+                <Link
+                    to="/"
                     className="Direction-link"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenu}
                 >
                     Home
-                </a>
+                </Link>
 
+                {/* Category dropdown */}
                 <select
                     className="Category"
-                    defaultValue="Category"
+                    defaultValue=""
                     aria-label="Select category"
+                    onChange={handleCategoryChange}
                 >
-                    <option value="Category">Category</option>
-                    <a href="#" className="Direction-link"><option value="Construction">Construction</option></a>
-                    <a href="#" className="Direction-link"><option value="Mason-Work">Mason Work</option></a>
-                    <a href="#" className="Direction-link"><option value="Plumbing">Plumbing</option></a>
-                    <a href="#" className="Direction-link"><option value="Electrical-Work">Electrical Work</option></a>
-                    <a href="#" className="Direction-link"><option value="Tile-Work">Tile Work</option></a>
-                    <a href="#" className="Direction-link"><option value="Painting">Painting</option></a>
-                    <a href="#" className="Direction-link"><option value="Roof-Work">Roof Work</option></a>
-    
+                    <option value="" disabled>
+                        Category
+                    </option>
+
+                    <option value="/construction">
+                        Construction
+                    </option>
+
+                    <option value="/masons">
+                        Mason Work
+                    </option>
+
+                    <option value="/plumbers">
+                        Plumbing
+                    </option>
+
+                    <option value="/electricians">
+                        Electrical Work
+                    </option>
+
+                    <option value="/tile-workers">
+                        Tile Work
+                    </option>
+
+                    <option value="/painters">
+                        Painting
+                    </option>
+
+                    <option value="/roof-workers">
+                        Roof Work
+                    </option>
                 </select>
 
-                <a
-                    href="#"
+                <Link
+                    to="/worker-register"
                     className="Direction-link"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenu}
                 >
                     As a Worker
-                </a>
+                </Link>
 
-                <a
-                    href="#"
+                <Link
+                    to="/login"
                     className="Direction-link"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenu}
                 >
                     Sign In
-                </a>
+                </Link>
 
-                <a
-                    href="#"
+                <Link
+                    to="/register"
                     className="Join-btn"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenu}
                 >
                     Join
-                </a>
+                </Link>
 
             </div>
-
         </nav>
     );
 }

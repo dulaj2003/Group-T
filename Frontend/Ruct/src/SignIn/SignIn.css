@@ -1,0 +1,186 @@
+
+/* Main Container */
+.signin-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 15px;
+    background: #f4f7f6;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Sign In Form */
+.signin-form {
+    width: 100%;
+    max-width: 430px;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Header */
+.signin-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.signin-header h1 {
+    color: #0e5245;
+    font-size: 28px;
+    margin: 0 0 10px;
+}
+
+.signin-header p {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Form Groups */
+.signin-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.signin-group > label {
+    color: #222;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.signin-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.signin-group input:focus {
+    border-color: #207967;
+    box-shadow: 0 0 0 3px rgba(32, 121, 103, 0.12);
+}
+
+/* Password Wrapper */
+.signin-password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.signin-password-wrapper input {
+    padding-right: 65px;
+}
+
+.signin-toggle-password {
+    position: absolute;
+    right: 10px;
+    border: none;
+    background: transparent;
+    color: #0e5245;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Remember Me and Forgot Password */
+.signin-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    font-size: 13px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #555;
+}
+
+.remember-me input {
+    accent-color: #0e5245;
+    cursor: pointer;
+}
+
+.signin-options a {
+    color: #0e5245;
+    text-decoration: none;
+}
+
+.signin-options a:hover {
+    text-decoration: underline;
+}
+
+/* Error */
+.signin-error {
+    color: #d93025;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+/* Sign In Button */
+.signin-button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 6px;
+    background: #0e5245;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.signin-button:hover {
+    background: #207967;
+}
+
+/* Registration Link */
+.signin-register-link {
+    text-align: center;
+    margin-top: 25px;
+    color: #666;
+    font-size: 14px;
+}
+
+.signin-register-link a {
+    color: #0e5245;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signin-register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .signin-container {
+        padding: 20px 12px;
+    }
+
+    .signin-form {
+        padding: 25px 20px;
+    }
+
+    .signin-header h1 {
+        font-size: 24px;
+    }
+
+    .signin-options {
+        flex-wrap: wrap;
+    }
+}

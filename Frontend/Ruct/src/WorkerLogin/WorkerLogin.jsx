@@ -1,0 +1,355 @@
+
+import { useState } from 'react';
+import './WorkerLogin.css';
+
+const districts = [
+    'Ampara',
+    'Anuradhapura',
+    'Badulla',
+    'Batticaloa',
+    'Colombo',
+    'Galle',
+    'Gampaha',
+    'Hambantota',
+    'Jaffna',
+    'Kalutara',
+    'Kandy',
+    'Kegalle',
+    'Kilinochchi',
+    'Kurunegala',
+    'Mannar',
+    'Matale',
+    'Matara',
+    'Monaragala',
+    'Mullaitivu',
+    'Nuwara Eliya',
+    'Polonnaruwa',
+    'Puttalam',
+    'Ratnapura',
+    'Trincomalee',
+    'Vavuniya'
+];
+
+function WorkerLogin() {
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        location: '',
+        description: '',
+        password: '',
+        confirmPassword: ''
+    });
+
+    const [profilePicture, setProfilePicture] = useState(null);
+    const [projectPictures, setProjectPictures] = useState([]);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    const wordCount = formData.description.trim()
+        ? formData.description.trim().split(/\s+/).length
+        : 0;
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        if (name === 'description') {
+            const words = value.trim()
+                ? value.trim().split(/\s+/)
+                : [];
+
+            if (words.length > 100) {
+                setError('Description cannot exceed 100 words.');
+                return;
+            }
+        }
+
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+
+        setError('');
+        setSuccess('');
+    }
+
+    function handleProfileChange(e) {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+            setError('Please select a valid profile picture.');
+            e.target.value = '';
+            return;
+        }
+
+        setProfilePicture(file);
+        setError('');
+        setSuccess('');
+    }
+
+    function handleProjectsChange(e) {
+        const files = Array.from(e.target.files);
+
+        if (files.length > 5) {
+            setError('You can upload a maximum of 5 project pictures.');
+            e.target.value = '';
+            return;
+        }
+
+        if (files.some(file => !file.type.startsWith('image/'))) {
+            setError('All project files must be images.');
+            e.target.value = '';
+            return;
+        }
+
+        setProjectPictures(files);
+        setError('');
+        setSuccess('');
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        setError('');
+        setSuccess('');
+
+        if (wordCount > 100) {
+            setError('Description cannot exceed 100 words.');
+            return;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            setError('Passwords do not match.');
+            return;
+        }
+
+        if (formData.password.length < 8) {
+            setError('Password must contain at least 8 characters.');
+            return;
+        }
+
+        // Frontend demonstration only.
+        // Send this data to your backend to register the worker.
+        console.log('Worker Details:', {
+            ...formData,
+            password: '[hidden]',
+            confirmPassword: '[hidden]'
+        });
+        console.log('Profile Picture:', profilePicture);
+        console.log('Project Pictures:', projectPictures);
+
+        setSuccess(
+            'Form validated successfully. Backend registration is not connected yet.'
+        );
+    }
+
+    return (
+        <div className="worker-register-container">
+            <form
+                className="worker-register-form"
+                onSubmit={handleSubmit}
+            >
+                <header className="worker-register-header">
+                    <h1>Worker Registration</h1>
+                    <p>
+                        Join Ruct and showcase your construction services.
+                    </p>
+                </header>
+
+                {/* Profile Picture */}
+                <div className="worker-profile-section">
+                    <div className="worker-profile-preview">
+                        {profilePicture ? (
+                            <img
+                                src={URL.createObjectURL(profilePicture)}
+                                alt="Profile preview"
+                            />
+                        ) : (
+                            <span>👤</span>
+                        )}
+                    </div>
+
+                    <label htmlFor="workerProfile">
+                        Profile Picture (Optional)
+                    </label>
+
+                    <input
+                        type="file"
+                        id="workerProfile"
+                        accept="image/*"
+                        onChange={handleProfileChange}
+                    />
+                </div>
+
+                {/* Username */}
+                <div className="worker-form-group">
+                    <label htmlFor="workerUsername">Username *</label>
+                    <input
+                        type="text"
+                        id="workerUsername"
+                        name="username"
+                        placeholder="Enter your username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        autoComplete="username"
+                        required
+                    />
+                </div>
+
+                {/* Email */}
+                <div className="worker-form-group">
+                    <label htmlFor="workerEmail">Email Address *</label>
+                    <input
+                        type="email"
+                        id="workerEmail"
+                        name="email"
+                        placeholder="Enter your email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        autoComplete="email"
+                        required
+                    />
+                </div>
+
+                {/* District */}
+                <div className="worker-form-group">
+                    <label htmlFor="workerLocation">
+                        District *
+                    </label>
+
+                    <select
+                        id="workerLocation"
+                        name="location"
+                        value={formData.location}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select your district</option>
+                        {districts.map(district => (
+                            <option key={district} value={district}>
+                                {district}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Description */}
+                <div className="worker-form-group">
+                    <label htmlFor="workerDescription">
+                        About Your Services * (Maximum 100 words)
+                    </label>
+
+                    <textarea
+                        id="workerDescription"
+                        name="description"
+                        placeholder="Describe your skills, experience, and services..."
+                        value={formData.description}
+                        onChange={handleChange}
+                        rows="5"
+                        required
+                    />
+
+                    <small className={
+                        wordCount >= 100
+                            ? 'worker-word-count limit'
+                            : 'worker-word-count'
+                    }>
+                        {wordCount}/100 words
+                    </small>
+                </div>
+
+                {/* Project Pictures */}
+                <div className="worker-form-group">
+                    <label htmlFor="workerProjects">
+                        Project Pictures (Maximum 5)
+                    </label>
+
+                    <input
+                        className="worker-file-input"
+                        type="file"
+                        id="workerProjects"
+                        accept="image/*"
+                        multiple
+                        onChange={handleProjectsChange}
+                    />
+
+                    <small className="worker-help-text">
+                        Upload up to 5 images of your completed projects.
+                    </small>
+
+                    {projectPictures.length > 0 && (
+                        <div className="worker-project-preview">
+                            {projectPictures.map((file, index) => (
+                                <div
+                                    className="worker-project-image"
+                                    key={`${file.name}-${index}`}
+                                >
+                                    <img
+                                        src={URL.createObjectURL(file)}
+                                        alt={`Project ${index + 1}`}
+                                    />
+                                    <span>Project {index + 1}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                {/* Password */}
+                <div className="worker-form-group">
+                    <label htmlFor="workerPassword">Password *</label>
+                    <input
+                        type="password"
+                        id="workerPassword"
+                        name="password"
+                        placeholder="Create a password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        autoComplete="new-password"
+                        minLength={8}
+                        required
+                    />
+                </div>
+
+                {/* Confirm Password */}
+                <div className="worker-form-group">
+                    <label htmlFor="workerConfirmPassword">
+                        Confirm Password *
+                    </label>
+                    <input
+                        type="password"
+                        id="workerConfirmPassword"
+                        name="confirmPassword"
+                        placeholder="Re-enter your password"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        autoComplete="new-password"
+                        minLength={8}
+                        required
+                    />
+                </div>
+
+                {error && (
+                    <p className="worker-form-error" role="alert">
+                        {error}
+                    </p>
+                )}
+
+                {success && (
+                    <p className="worker-form-success" role="status">
+                        {success}
+                    </p>
+                )}
+
+                <button
+                    type="submit"
+                    className="worker-register-button"
+                >
+                    Register as a Worker
+                </button>
+            </form>
+        </div>
+    );
+}
+
+export default WorkerLogin;
