@@ -211,6 +211,28 @@ function WorkerLogin() {
                     />
                 </div>
 
+                {/* Category */}
+                <div className="worker-form-group">
+                    <label htmlFor="workerCategory">Category *</label>
+
+                    <select
+                        id="workerCategory"
+                        name="category"
+                        value={formData.category}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select your category</option>
+                        <option value="Constructor">Constructor</option>
+                        <option value="Electrician">Electrician</option>
+                        <option value="Mason">Mason</option>
+                        <option value="Painter">Painter</option>
+                        <option value="Plumber">Plumber</option>
+                        <option value="Roof Worker">Roof Worker</option>
+                        <option value="Tile Worker">Tile Worker</option>
+                    </select>
+                </div>
+
                 {/* District */}
                 <div className="worker-form-group">
                     <label htmlFor="workerLocation">
