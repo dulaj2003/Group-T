@@ -34,6 +34,7 @@ function WorkerLogin() {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
+        category: '',
         location: '',
         description: '',
         password: '',
@@ -44,6 +45,7 @@ function WorkerLogin() {
     const [projectPictures, setProjectPictures] = useState([]);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const wordCount = formData.description.trim()
         ? formData.description.trim().split(/\s+/).length
@@ -108,8 +110,10 @@ function WorkerLogin() {
         setSuccess('');
     }
 
-    function handleSubmit(e) {
+    
+    async function handleSubmit(e) {
         e.preventDefault();
+
         setError('');
         setSuccess('');
 
@@ -128,20 +132,79 @@ function WorkerLogin() {
             return;
         }
 
-        // Frontend demonstration only.
-        // Send this data to your backend to register the worker.
-        console.log('Worker Details:', {
-            ...formData,
-            password: '[hidden]',
-            confirmPassword: '[hidden]'
-        });
-        console.log('Profile Picture:', profilePicture);
-        console.log('Project Pictures:', projectPictures);
+        try {
+            setIsSubmitting(true);
 
-        setSuccess(
-            'Form validated successfully. Backend registration is not connected yet.'
-        );
+            // Create FormData for text fields and image files
+            const data = new FormData();
+
+            data.append('name', formData.username);
+            data.append('email', formData.email);
+            data.append('password', formData.password);
+            data.append('trade', formData.category);
+            data.append('area', formData.location);
+            data.append('description', formData.description);
+
+            // Add profile picture if selected
+            if (profilePicture) {
+                data.append('profilePicture', profilePicture);
+            }
+
+            // Add project pictures
+            projectPictures.forEach((file) => {
+                data.append('projectPictures', file);
+            });
+
+            // Send registration request to backend
+            const response = await fetch(
+                'http://localhost:5000/api/auth/register/worker',
+                {
+                    method: 'POST',
+                    body: data
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    result.message || 'Worker registration failed.'
+                );
+            }
+
+            setSuccess('Worker registered successfully!');
+
+            // Clear form after successful registration
+            setFormData({
+                username: '',
+                email: '',
+                category: '',
+                location: '',
+                description: '',
+                password: '',
+                confirmPassword: ''
+            });
+
+            setProfilePicture(null);
+            setProjectPictures([]);
+
+            const profileInput = document.getElementById('workerProfile');
+            const projectInput = document.getElementById('workerProjects');
+
+            if (profileInput) profileInput.value = '';
+            if (projectInput) projectInput.value = '';
+
+        } catch (error) {
+            console.error('Worker registration error:', error);
+
+            setError(
+                error.message || 'Unable to connect to the server.'
+            );
+        } finally {
+            setIsSubmitting(false);
+        }
     }
+
 
     return (
         <div className="worker-register-container">
@@ -366,8 +429,9 @@ function WorkerLogin() {
                 <button
                     type="submit"
                     className="worker-register-button"
+                    disabled={isSubmitting}
                 >
-                    Register as a Worker
+                    {isSubmitting ? 'Registering...' : 'Register as a Worker'}
                 </button>
             </form>
         </div>

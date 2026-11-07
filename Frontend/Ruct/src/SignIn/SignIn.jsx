@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './SignIn.css';
 
 function SignIn() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -20,14 +22,58 @@ function SignIn() {
         });
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         setError('');
 
-        // Frontend demonstration only
-        console.log('Sign In Data:', formData);
+        try {
+            const response = await fetch(
+                'http://localhost:5000/api/auth/login',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: formData.email,
+                        password: formData.password
+                    })
+                }
+            );
 
-        alert('Sign In form submitted successfully!');
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.message || 'Login failed.');
+            }
+
+            if (!['customer', 'worker'].includes(result.data.user.role)) {
+                throw new Error('Invalid account role.');
+            }
+
+            sessionStorage.setItem('token', result.data.token);
+            sessionStorage.setItem(
+                'user',
+                JSON.stringify(result.data.user)
+            );
+
+            window.dispatchEvent(new Event('ruct-auth-changed'));
+
+            alert('Login successful!');
+
+            console.log('Logged in user:', result.data.user);
+
+            setFormData({
+                email: '',
+                password: ''
+            });
+
+            navigate('/', { replace: true });
+
+        } catch (error) {
+            console.error('User login error:', error);
+            setError(error.message || 'Unable to connect to the server.');
+        }
     }
 
     return (

@@ -27,7 +27,22 @@ const userSchema = new mongoose.Schema(
         phone : {
             type : String,
             trim : true
+        },
+        district: {
+            type: String,
+            trim: true,
+            default: ""
+        },
+        profilePicture: {
+            type: String,
+            default: ""
+        },
+
+        profilePicturePublicId: {
+            type: String,
+            default: ""
         }
+
     },
     { timestamps : true }
 );

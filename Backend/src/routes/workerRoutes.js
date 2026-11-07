@@ -10,7 +10,7 @@ import {
     protect,
     authorizeRoles
 } from "../middleware/authmiddleware.js";
-
+import workerImageUpload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
@@ -25,6 +25,7 @@ router.put(
     "/my-profile",
     protect,
     authorizeRoles("worker"),
+    workerImageUpload,
     updateMyProfile
 );
 

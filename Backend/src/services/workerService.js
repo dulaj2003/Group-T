@@ -30,12 +30,11 @@ export async function getAllWorkers({ trade, area } = {}) {
             name: profile.userId.name,
             trade: profile.trade,
             area: profile.area,
-            skills: profile.skills,
-            experience: profile.experience,
             phone: profile.userId.phone || "",
             description: profile.description,
             hourlyRate: profile.hourlyRate,
-            availability: profile.availability
+            availability: profile.availability,
+            profilePicture: profile.profilePicture || ""
         }));
 }
 
@@ -45,7 +44,7 @@ export async function getWorkerById(id) {
     }
 
     const profile = await WorkerProfile.findById(id)
-        .populate("userId", "name phone")
+        .populate("userId", "name phone email")
         .lean();
 
     if (!profile || !profile.userId) {
@@ -55,14 +54,15 @@ export async function getWorkerById(id) {
     return {
         id: profile._id.toString(),
         name: profile.userId.name,
+        email: profile.userId.email || "",
+        phone: profile.userId.phone || "",
         trade: profile.trade,
         area: profile.area,
-        skills: profile.skills,
-        experience: profile.experience,
-        phone: profile.userId.phone || "",
         description: profile.description,
         hourlyRate: profile.hourlyRate,
-        availability: profile.availability
+        availability: profile.availability,
+        profilePicture: profile.profilePicture || "",
+        projectPictures: profile.projectPictures || []
     };
 }
 
@@ -87,7 +87,10 @@ export async function getMyWorkerProfile(userId) {
         experience: profile.experience,
         description: profile.description,
         hourlyRate: profile.hourlyRate,
-        availability: profile.availability
+        availability: profile.availability,
+        location: profile.location || "",
+        profilePicture: profile.profilePicture || "",
+        projectPictures: profile.projectPictures || []
     };
 }
 
@@ -99,7 +102,12 @@ export async function updateMyWorkerProfile(userId, updates) {
         "experience",
         "description",
         "hourlyRate",
-        "availability"
+        "availability",
+        "location",
+        "profilePicture",
+        "profilePicturePublicId",
+        "projectPictures",
+        "projectPicturePublicIds"
     ];
 
     const profileUpdates = {};
@@ -160,7 +168,10 @@ export async function updateMyWorkerProfile(userId, updates) {
         experience: profile.experience,
         description: profile.description,
         hourlyRate: profile.hourlyRate,
-        availability: profile.availability
+        availability: profile.availability,
+        location: profile.location || "",
+        profilePicture: profile.profilePicture || "",
+        projectPictures: profile.projectPictures || []
     };
 }
 

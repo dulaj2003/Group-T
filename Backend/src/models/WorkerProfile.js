@@ -43,6 +43,28 @@ const workerProfileSchema = new mongoose.Schema(
     location: {
       type: String,
       trim: true
+    },
+
+    profilePicture: {
+      type: String,
+      default: ""
+    },
+    profilePicturePublicId: {
+      type: String,
+      default: ""
+    },
+
+    projectPictures: {
+      type: [String],
+      default: [],
+      validate: {
+        validator: (pictures) => pictures.length <= 5,
+        message: "A maximum of 5 project pictures is allowed."
+      }
+    },
+    projectPicturePublicIds: {
+      type: [String],
+      default: []
     }
   },
   { timestamps: true }

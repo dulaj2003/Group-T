@@ -32,6 +32,9 @@ import TileWorkerProfile from './Pages/TileWorker/TileWorkerProfile.jsx';
 import RoofWorker from './Pages/RoofWorker/RoofWorker.jsx';
 import RoofWorkerProfile from './Pages/RoofWorker/RoofWorkerProfile.jsx';
 
+import CustomerProfile from './CustomerProfile/CustomerProfile';
+import WorkerProfile from './WorkerProfile/WorkerProfile';
+
 function App() {
     return (
       
@@ -66,6 +69,9 @@ function App() {
 
             <Route path="/roof-workers" element={<RoofWorker />} />
             <Route path="/roof-workers/:id" element={<RoofWorkerProfile />} />
+
+            <Route path="/customer-profile" element={<CustomerProfile />} />
+            <Route path="/worker-profile" element={<WorkerProfile />} />
         </Routes>
 
         <Footer />

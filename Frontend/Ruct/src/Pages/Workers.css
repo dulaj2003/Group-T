@@ -531,3 +531,28 @@ body {
 .worker-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     
 }
+.worker-public-projects {
+    margin-top: 35px;
+}
+
+.worker-public-projects h2 {
+    margin-bottom: 20px;
+}
+
+.worker-public-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+}
+
+.worker-public-gallery img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.unavailable {
+    color: #b42318;
+    font-weight: 600;
+}

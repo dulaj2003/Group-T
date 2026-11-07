@@ -1,97 +1,118 @@
+
 import '../Workers.css';
 import ProfilePicture from '../WorkersImages/img2.webp';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Plumber() {
     const navigate = useNavigate();
+
+    const [workers, setWorkers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        let active = true;
+
+        async function loadWorkers() {
+            try {
+                const response = await fetch(
+                    'http://localhost:5000/api/workers?trade=Plumber'
+                );
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Unable to load plumbers.');
+                }
+
+                if (active) {
+                    setWorkers(result.data || []);
+                }
+            } catch (err) {
+                if (active) {
+                    setError(err.message);
+                }
+            } finally {
+                if (active) {
+                    setLoading(false);
+                }
+            }
+        }
+
+        loadWorkers();
+
+        return () => {
+            active = false;
+        };
+    }, []);
+
     return (
+        <div>
+            <section className="hero">
+                <h1>Find the Best Plumber for Your Home</h1>
+                <p>Professional plumbing services you can trust.</p>
+            </section>
 
-    <div>
-        
-    <section className="hero">
-        <h1>Find the Best Plumber for Your Home</h1>
-        <p>Professional plumbing services you can trust.</p>
-        
-    </section>
+            <main className="container" id="workers">
+                <h2 className="section-title">Available Plumbers</h2>
 
-    <main className="container" id="workers">
-        <h2 className="section-title">Available Plumbers</h2>
-        <p className="subtitle">
-            Choose a worker to view their details.
-        </p>
+                <p className="subtitle">
+                    Choose a worker to view their details.
+                </p>
 
-        <div className="worker-grid">
+                {loading && <p>Loading plumbers...</p>}
 
-            <div className="worker-card">
-                        <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=800" alt="Ruwan Perera"/>
-                        <div className="card-content">
-                            <span className="available">Available</span>
-                            <h3>Ruwan Perera</h3>
-                            <p>📍 Galle, Sri Lanka</p>
-                            <p>Experience: 9 Years</p>
-                            <p className="price">From Rs. 3,500</p>
+                {error && <p>{error}</p>}
 
-                            <button className="details-btn"
-                                onClick={() => navigate('/plumbers/:id')}>
-                                View Details
-                            </button>
+                {!loading && !error && workers.length === 0 && (
+                    <p>No registered plumbers found.</p>
+                )}
+
+                <div className="worker-grid">
+                    {workers.map(worker => (
+                        <div className="worker-card" key={worker.id}>
+                            <img
+                                src={worker.profilePicture || ProfilePicture}
+                                alt={worker.name}
+                            />
+
+                            <div className="card-content">
+                                <span className={
+                                    worker.availability
+                                        ? 'available'
+                                        : 'unavailable'
+                                }>
+                                    {worker.availability
+                                        ? 'Available'
+                                        : 'Unavailable'}
+                                </span>
+
+                                <h3>{worker.name}</h3>
+
+                                <p>📍 {worker.area}, Sri Lanka</p>
+
+                                <p className="price">
+                                    {worker.hourlyRate != null
+                                        ? `Rs. ${Number(worker.hourlyRate).toLocaleString()}/hour`
+                                        : 'Rate not specified'}
+                                </p>
+
+                                <button
+                                    className="details-btn"
+                                    onClick={() =>
+                                        navigate(`/plumbers/${worker.id}`)
+                                    }
+                                >
+                                    View Details
+                                </button>
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="worker-card">
-                        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800" alt="Kasun Silva"/>
-                        <div className="card-content">
-                            <span className="available">Available</span>
-                            <h3>Kasun Silva</h3>
-                            <p>📍 Matara, Sri Lanka</p>
-                            <p>Experience: 6 Years</p>
-                            <p className="price">From Rs. 3,000</p>
-
-                            <button className="details-btn"
-                                onClick={() => navigate('/plumbers/:id')}>
-                                View Details
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="worker-card">
-                        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800" alt="Saman Fernando"/>
-                        <div className="card-content">
-                            <span className="available">Available</span>
-                            <h3>Saman Fernando</h3>
-                            <p>📍 Colombo, Sri Lanka</p>
-                            <p>Experience: 12 Years</p>
-                            <p className="price">From Rs. 4,500</p>
-
-                            <button className="details-btn"
-                                onClick={() => navigate('/plumbers/:id')}>
-                                View Details
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="worker-card">
-                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800" alt="Amal Kumara"/>
-                        <div className="card-content">
-                            <span className="available">Available</span>
-                            <h3>Amal Kumara</h3>
-                            <p>📍 Hikkaduwa, Sri Lanka</p>
-                            <p>Experience: 7 Years</p>
-                            <p className="price">From Rs. 3,200</p>
-
-                            <button className="details-btn"
-                                onClick={() => navigate('/plumbers/:id')}>
-                                View Details
-                            </button>
-                        </div>
-                    </div>
-
+                    ))}
+                </div>
+            </main>
         </div>
-    </main>
-
-    </div>
-
-    )
+    );
 }
 
-export default Plumber
+export default Plumber;

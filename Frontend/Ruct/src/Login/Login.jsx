@@ -39,20 +39,72 @@ function Login() {
         }
     }
 
-    function handleSubmit(e) {
+
+    async function handleSubmit(e) {
         e.preventDefault();
+        setError('');
 
         if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match!');
             return;
         }
 
-        setError('');
+        if (formData.password.length < 8) {
+            setError('Password must contain at least 8 characters.');
+            return;
+        }
 
-        console.log('Registration Data:', formData);
-        console.log('Profile Picture:', profilePicture);
+        try {
+            const data = new FormData();
 
-        alert('Registration form submitted successfully!');
+            data.append('name', formData.username);
+            data.append('email', formData.email);
+            data.append('district', formData.location);
+            data.append('password', formData.password);
+
+            if (profilePicture) {
+                data.append('profilePicture', profilePicture);
+            }
+
+            const response = await fetch(
+                'http://localhost:5000/api/auth/register/customer',
+                {
+                    method: 'POST',
+                    body: data
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.message || 'Registration failed.');
+            }
+
+            alert('Customer account created successfully!');
+
+            console.log('Registered customer:', result.data.user);
+
+            setFormData({
+                username: '',
+                email: '',
+                location: '',
+                password: '',
+                confirmPassword: ''
+            });
+
+            setProfilePicture(null);
+            setPreview(null);
+
+            const pictureInput = document.getElementById('profilePicture');
+
+            if (pictureInput) {
+                pictureInput.value = '';
+            }
+
+        } catch (error) {
+            console.error('Customer registration error:', error);
+            setError(error.message || 'Unable to connect to the server.');
+        }
     }
 
     return (

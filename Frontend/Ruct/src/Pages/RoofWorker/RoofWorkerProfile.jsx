@@ -1,41 +1,179 @@
+
 import '../Workers.css';
 import ProfilePicture from '../WorkersImages/img2.webp';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-function RoofWorkerProfile(){
+function RoofWorkerProfile() {
     const navigate = useNavigate();
-    return(
-         <div className="Page-container">
-                                <main class="details-container">
-                                    <button
-                                        className="back-link"
-                                        onClick={() => navigate('/roof-workers')}
-                                    >
-                                        ← Back to Workers
-                                    </button>
-                                    <div class="profile-card">
-                                        <img id="workerImage" src={ProfilePicture} alt="Worker profile"/>
-                                        <div class="profile-info">
-                                            <span class="available">Available for Work</span>
-                                            <h1 id="workerName">Kavindu Vinod</h1>
-                                            <p id="workerLocation"></p>
-                                            <p id="workerExperience"></p>
-                                            <p id="workerPrice" class="price"></p>
-                                            <hr/>
-                                            <h3>About Me</h3>
-                                            <p id="workerDescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum a officiis quaerat consequatur qui consequuntur veniam. Ea iste adipisci quidem!</p>
-                                            <h3>Services</h3>
-                                            <ul id="workerServices">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione dignissimos, inventore architecto ipsum obcaecati voluptatem dicta consectetur odio quisquam distinctio delectus odit assumenda voluptate. Culpa animi molestiae amet aliquid sapiente.</ul>
-                                            <h3>Contact Details</h3>
-                                            <p ><span>Phone: </span><span id="workerPhone">+94 77 55 93 656</span> </p>
-                                            <p ><span>Email: </span><span id="workerEmail">kavinduvinod63@gmail.com</span> </p>
-                                            <a id="callButton" href="#" class="details-btn">Call Worker</a>
-                                        </div>
-                                    </div>
-                                </main>
-                            </div>
+    const { id } = useParams();
 
-    )
+    const [worker, setWorker] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        let active = true;
+
+        async function loadWorker() {
+            try {
+                const response = await fetch(
+                    `http://localhost:5000/api/workers/${id}`
+                );
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        result.message || 'Worker not found.'
+                    );
+                }
+
+                if (active) {
+                    if (result.data?.trade?.toLowerCase() !== 'roof worker') {
+                        throw new Error('Roof worker not found.');
+                    }
+
+                    setWorker(result.data);
+                }
+            } catch (err) {
+                if (active) {
+                    setError(err.message);
+                }
+            } finally {
+                if (active) {
+                    setLoading(false);
+                }
+            }
+        }
+
+        loadWorker();
+
+        return () => {
+            active = false;
+        };
+    }, [id]);
+
+    if (loading) {
+        return (
+            <main className="details-container">
+                <p>Loading roof worker details...</p>
+            </main>
+        );
+    }
+
+    if (error || !worker) {
+        return (
+            <main className="details-container">
+                <button
+                    className="back-link"
+                    onClick={() => navigate('/roof-workers')}
+                >
+                    ← Back to Workers
+                </button>
+
+                <p>{error || 'Roof worker not found.'}</p>
+            </main>
+        );
+    }
+
+    return (
+        <div className="Page-container">
+            <main className="details-container">
+                <button
+                    className="back-link"
+                    onClick={() => navigate('/roof-workers')}
+                >
+                    ← Back to Workers
+                </button>
+
+                <div className="profile-card">
+                    <img
+                        id="workerImage"
+                        src={worker.profilePicture || ProfilePicture}
+                        alt={worker.name}
+                    />
+
+                    <div className="profile-info">
+                        <span
+                            className={
+                                worker.availability
+                                    ? 'available'
+                                    : 'unavailable'
+                            }
+                        >
+                            {worker.availability
+                                ? 'Available for Work'
+                                : 'Currently Unavailable'}
+                        </span>
+
+                        <h1 id="workerName">{worker.name}</h1>
+
+                        <p id="workerLocation">
+                            📍 {worker.area}, Sri Lanka
+                        </p>
+
+                        <p id="workerPrice" className="price">
+                            {worker.hourlyRate != null
+                                ? `Rs. ${Number(worker.hourlyRate).toLocaleString()}/hour`
+                                : 'Rate not specified'}
+                        </p>
+
+                        <hr />
+
+                        <h3>About Me</h3>
+
+                        <p id="workerDescription">
+                            {worker.description ||
+                                'No description available.'}
+                        </p>
+
+                        <h3>Contact Details</h3>
+
+                        <p>
+                            <span>Phone: </span>
+                            <span id="workerPhone">
+                                {worker.phone || 'Not provided'}
+                            </span>
+                        </p>
+
+                        <p>
+                            <span>Email: </span>
+                            <span id="workerEmail">
+                                {worker.email || 'Not provided'}
+                            </span>
+                        </p>
+
+                        {worker.phone && (
+                            <a
+                                id="callButton"
+                                href={`tel:${worker.phone}`}
+                                className="details-btn"
+                            >
+                                Call Worker
+                            </a>
+                        )}
+                    </div>
+                </div>
+
+                {(worker.projectPictures || []).length > 0 && (
+                    <section className="worker-public-projects">
+                        <h2>Previous Projects</h2>
+
+                        <div className="worker-public-gallery">
+                            {worker.projectPictures.map((picture, index) => (
+                                <img
+                                    key={index}
+                                    src={picture}
+                                    alt={`Project ${index + 1}`}
+                                />
+                            ))}
+                        </div>
+                    </section>
+                )}
+            </main>
+        </div>
+    );
 }
 
-export default RoofWorkerProfile
+export default RoofWorkerProfile;
