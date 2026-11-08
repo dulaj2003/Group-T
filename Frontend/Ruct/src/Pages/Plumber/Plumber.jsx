@@ -17,7 +17,7 @@ function Plumber() {
         async function loadWorkers() {
             try {
                 const response = await fetch(
-                    'http://localhost:5000/api/workers?trade=Plumber'
+                    `${import.meta.env.VITE_API_URL}/api/workers?trade=Plumber`
                 );
 
                 const result = await response.json();

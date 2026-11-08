@@ -17,7 +17,7 @@ function Electrician() {
         async function loadWorkers() {
             try {
                 const response = await fetch(
-                    'http://localhost:5000/api/workers?trade=Electrician'
+                    `${import.meta.env.VITE_API_URL}/api/workers?trade=Electrician`
                 );
 
                 const result = await response.json();

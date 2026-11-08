@@ -17,7 +17,7 @@ function TileWorker() {
         async function loadWorkers() {
             try {
                 const response = await fetch(
-                    'http://localhost:5000/api/workers?trade=Tile Worker'
+                    `${import.meta.env.VITE_API_URL}/api/workers?trade=Tile Worker`
                 );
 
                 const result = await response.json();

@@ -161,7 +161,7 @@ function WorkerLogin() {
 
             // Send registration request to backend
             const response = await fetch(
-                'http://localhost:5000/api/auth/register/worker',
+                `${import.meta.env.VITE_API_URL}/api/auth/register/worker`,
                 {
                     method: 'POST',
                     body: data

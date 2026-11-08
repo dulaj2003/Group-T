@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './WorkerProfile.css';
 
-const API = 'http://localhost:5000/api/workers/my-profile';
+const API = `${import.meta.env.VITE_API_URL}/api/workers/my-profile`;
 
 function makeForm(profile) {
     return {

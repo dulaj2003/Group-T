@@ -17,7 +17,7 @@ function Constructor() {
         async function loadWorkers() {
             try {
                 const response = await fetch(
-                    'http://localhost:5000/api/workers?trade=Construction%20Worker'
+                    `${import.meta.env.VITE_API_URL}/api/workers?trade=Construction%20Worker`
                 );
 
                 const result = await response.json();

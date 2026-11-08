@@ -17,7 +17,7 @@ function Mason() {
         async function loadWorkers() {
             try {
                 const response = await fetch(
-                    'http://localhost:5000/api/workers?trade=Mason'
+                    `${import.meta.env.VITE_API_URL}/api/workers?trade=Mason`
                 );
 
                 const result = await response.json();
