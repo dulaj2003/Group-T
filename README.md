@@ -74,7 +74,7 @@ RUCT aims to make finding reliable construction workers easier while helping wor
 
 ## Project Structure
 
-text
+```text
 Group-T/
 ├── Frontend/
 │   └── Ruct/
@@ -96,7 +96,7 @@ Group-T/
 │   └── .env
 │
 └── README.md
-
+```
 
 ## Prerequisites
 
@@ -232,7 +232,6 @@ The application uses REST APIs to communicate between the React frontend and Exp
 |  POST  | `/api/auth/register/customer` |      Register a customer      |
 |  POST  |  `/api/auth/register/worker`  |       Register a worker       |
 |  POST  |       `/api/auth/login`       | Log in to an existing account |
-|--------|-------------------------------|-------------------------------| 
 
 ### Worker Management
  
@@ -242,7 +241,6 @@ The application uses REST APIs to communicate between the React frontend and Exp
 |  GET   | `/api/workers/:id` |        Retrieve a specific worker       |
 |  GET   | `/api/workers/me`  | Retrieve the logged-in worker's profile |
 | PATCH  | `/api/workers/me`  |  Update the logged-in worker's profile  |
-|--------|--------------------|-----------------------------------------|
 
 Protected endpoints require a valid JWT token.
 
