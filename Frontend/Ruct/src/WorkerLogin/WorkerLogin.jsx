@@ -34,8 +34,10 @@ function WorkerLogin() {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
+        phone: '',
         category: '',
         location: '',
+        hourlyRate: '',
         description: '',
         password: '',
         confirmPassword: ''
@@ -140,9 +142,11 @@ function WorkerLogin() {
 
             data.append('name', formData.username);
             data.append('email', formData.email);
+            data.append('phone', formData.phone.trim());
             data.append('password', formData.password);
             data.append('trade', formData.category);
             data.append('area', formData.location);
+            data.append('hourlyRate', formData.hourlyRate);
             data.append('description', formData.description);
 
             // Add profile picture if selected
@@ -178,8 +182,10 @@ function WorkerLogin() {
             setFormData({
                 username: '',
                 email: '',
+                phone: '',
                 category: '',
                 location: '',
+                hourlyRate: '',
                 description: '',
                 password: '',
                 confirmPassword: ''
@@ -274,6 +280,38 @@ function WorkerLogin() {
                     />
                 </div>
 
+                {/* Phone Number */}
+                <div className="worker-form-group">
+                    <label htmlFor="workerPhone">Phone Number *</label>
+                    <input
+                        type="tel"
+                        id="workerPhone"
+                        name="phone"
+                        placeholder="Enter your phone number (e.g. 0771234567)"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        autoComplete="tel"
+                        pattern="(?:0[0-9]{9}|\+94[0-9]{9})"
+                        required
+                    />
+                </div>
+
+                {/* Hourly Rate */}
+                <div className="worker-form-group">
+                    <label htmlFor="workerHourlyRate">Hourly Rate (Rs.) *</label>
+                    <input
+                        type="number"
+                        id="workerHourlyRate"
+                        name="hourlyRate"
+                        placeholder="Enter your hourly rate"
+                        value={formData.hourlyRate}
+                        onChange={handleChange}
+                        min="0"
+                        step="0.01"
+                        required
+                    />
+                </div>
+
                 {/* Category */}
                 <div className="worker-form-group">
                     <label htmlFor="workerCategory">Category *</label>
@@ -286,7 +324,7 @@ function WorkerLogin() {
                         required
                     >
                         <option value="">Select your category</option>
-                        <option value="Constructor">Constructor</option>
+                        <option value="Construction Worker">Construction Worker</option>
                         <option value="Electrician">Electrician</option>
                         <option value="Mason">Mason</option>
                         <option value="Painter">Painter</option>

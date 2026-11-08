@@ -206,6 +206,16 @@ export async function registerWorker(req, res, next) {
         }
 
         if (
+            typeof phone !== "string" ||
+            !/^(0[0-9]{9}|\+94[0-9]{9})$/.test(phone.trim())
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a valid Sri Lankan phone number."
+            });
+        }
+
+        if (
             typeof trade !== "string" ||
             !trade.trim() ||
             typeof area !== "string" ||
