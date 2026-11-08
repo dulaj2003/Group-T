@@ -9,7 +9,7 @@ import {
 import {
     protect,
     authorizeRoles
-} from "../middleware/authmiddleware.js";
+} from "../middleware/authMiddleware.js";
 import workerImageUpload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
