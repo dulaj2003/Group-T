@@ -1,3 +1,4 @@
+
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -12,8 +13,20 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cors());
-app.use("/api/workers", workerRoutes);
-app.use("/api/auth", authRoutes);
+
+app.use((req, res, next) => {
+    const start = Date.now();
+
+    console.log(`${new Date().toISOString()} ${req.method} ${req.originalUrl}`);
+
+    res.on("finish", () => {
+        console.log(
+            `${req.method} ${req.originalUrl} - ${res.statusCode} - ${Date.now() - start}ms`
+        );
+    });
+
+    next();
+});
 
 app.get("/", (req, res) => {
     res.json({
@@ -23,12 +36,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/health", (req, res) => {
-    res.json({
+    res.status(200).json({
         success: true,
         message: "RUCT API is running"
     });
 });
 
+app.use("/api/workers", workerRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use((req, res) => {
     res.status(404).json({
@@ -38,7 +53,7 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-    console.error(err);
+    console.error("API Error:", err);
 
     res.status(500).json({
         success: false,
@@ -48,13 +63,19 @@ app.use((err, req, res, next) => {
 
 const startServer = async () => {
     try {
+        console.log("Connecting to MongoDB...");
+
         await connectDB();
 
-        app.listen(PORT, () => {
+        const server = app.listen(PORT, "0.0.0.0", () => {
             console.log(`RUCT API running on port ${PORT}`);
         });
+
+        server.on("error", (error) => {
+            console.error("Server error:", error);
+        });
     } catch (error) {
-        console.error("Failed to start server : ", error.message);
+        console.error("Failed to start server:", error.message);
         process.exit(1);
     }
 };
